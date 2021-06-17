@@ -1,6 +1,7 @@
 package com.shaw.kratos.common.entity;
 
 import com.shaw.kratos.common.enums.ResponseStatusEnum;
+import com.shaw.kratos.common.exceptions.BusinessException;
 import com.shaw.kratos.common.exceptions.KratosException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -27,6 +28,18 @@ public class GlobalExceptionHandler {
                 .code(ResponseStatusEnum.SYSTEM_ERROR.getCode())
                 .message(e.getMessage())
                 .success(false)
+                .t(System.currentTimeMillis()).build();
+    }
+
+    @ExceptionHandler(BusinessException.class)
+    @ResponseBody
+    ResponseError handleBusinessException(BusinessException e) {
+        log.warn("出现了自定义的异常===============");
+        return ResponseError.builder()
+                .code(ResponseStatusEnum.BUSINESS_ERROR.getCode())
+                .success(false)
+                .errorCode(e.getErrorCode())
+                .errorMessage(e.getErrorMessage())
                 .t(System.currentTimeMillis()).build();
     }
 

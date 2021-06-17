@@ -3,23 +3,23 @@ package com.shaw.kratos.common.constants;
 public class UserSessionConstants {
 
     /** 每个用户sid数量上限 */
-    public static final int session_limit = 3;
+    public static final int SESSION_LIMIT = 3;
 
-    /** 缓存中的sid前缀，完整示例 user_session_{sid} */
-    public static final String user_session_redis_prefix = "user_session_";
+    /** 缓存中的sid前缀，完整示例 kratos_user_session_{sid} */
+    public static final String USER_SESSION_REDIS_PREFIX = "kratos_user_session_";
 
     /** sid过期时间 3600 * 30 s */
-    public static final long user_session_expire_time = 3600 * 30 ;
+    public static final long USER_SESSION_EXPIRE_TIME = 3600 * 30 ;
 
     /** 用户表分表数量 */
-    public static final int user_sharding_num = 2;
+    public static final int USER_SHARDING_NUM = 2;
 
     /** 用户表分表前缀 */
-    public static final String user_sharding_prefix = "user_";
+    public static final String USER_SHARDING_PREFIX = "user_";
 
     /** session表分表数量 */
-    public static final int user_session_sharding_num = 4;
+    public static final int USER_SESSION_SHARDING_NUM = 4;
 
     /** session表分表前缀 */
-    public static final String user_session_sharding_prefix = "user_session_";
+    public static final String USER_SESSION_SHARDING_PREFIX = "user_session_";
 }

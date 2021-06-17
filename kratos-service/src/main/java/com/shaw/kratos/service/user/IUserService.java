@@ -4,15 +4,10 @@ import com.shaw.kratos.dto.user.UserDO;
 
 public interface IUserService {
 
-    UserDO getUser(Long id);
+    UserDO getUserBySid(String sid);
 
     void userRegistry(UserDO userDO);
 
     UserDO getUserByUid(String uid);
 
-    void addUser(UserDO userDO);
-
-    void updateUser(UserDO userDO);
-
-    void deleteById(Long id);
 }

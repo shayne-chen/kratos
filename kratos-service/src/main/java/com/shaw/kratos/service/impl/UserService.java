@@ -1,15 +1,18 @@
 package com.shaw.kratos.service.impl;
 
-import com.alibaba.fastjson.JSON;
+import com.shaw.kratos.common.utils.EncryptUtils;
+import com.shaw.kratos.common.utils.UidUtils;
 import com.shaw.kratos.dao.mapper.UserMapper;
 import com.shaw.kratos.dto.user.UserDO;
+import com.shaw.kratos.dto.user.UserSessionDO;
 import com.shaw.kratos.service.user.IUserService;
 import com.shaw.kratos.service.redis.RedisUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.concurrent.TimeUnit;
 
 @Service
 @Slf4j
@@ -21,24 +24,40 @@ public class UserService implements IUserService {
     @Autowired
     private RedisUtils redisUtils;
 
-    private final String user_key_prefix = "kratos_user_";
+    @Autowired
+    private UserSessionService userSessionService;
+
+    @Autowired
+    private UserCacheService userCacheService;
 
     @Override
-    public UserDO getUser(Long id) {
-        String key = user_key_prefix + id;
-        if (redisUtils.hasKey(key)) {
-            log.info("从缓存中获取用户信息成功");
-            return JSON.parseObject(redisUtils.get(key), UserDO.class);
+    public UserDO getUserBySid(String sid) {
+        UserDO userDO = userCacheService.getBySid(sid);
+        if (null != userDO) {
+            return userDO;
         }
-        log.info("缓存数据不存在");
-        UserDO userDO = userMapper.getById(id);
-        redisUtils.set(key, JSON.toJSONString(userDO), 3600, TimeUnit.SECONDS);
-        return userMapper.getById(id);
+        UserSessionDO userSessionDO = userSessionService.getBySid(sid);
+        UserDO userDO1 = userMapper.getByUid(userSessionDO.getUid());
+        userCacheService.put(sid, userDO1);
+        return userDO1;
     }
 
     @Override
+    @Transactional
     public void userRegistry(UserDO userDO) {
+        userDO.setPassword(EncryptUtils.encryptByMd5(userDO.getPassword()));
+        if (StringUtils.isEmpty(userDO.getUid())) {
+            userDO.setUid(UidUtils.generateUid());
+        }
+        String newSid = UidUtils.generateSid(userDO.getUid());
+        userMapper.add(userDO);
 
+        UserSessionDO userSessionDO = new UserSessionDO();
+        userSessionDO.setSid(newSid);
+        userSessionDO.setUid(userDO.getUid());
+        userSessionService.add(userSessionDO);
+
+        userCacheService.put(newSid, userDO);
     }
 
     @Override
@@ -46,18 +65,4 @@ public class UserService implements IUserService {
         return userMapper.getByUid(uid);
     }
 
-    @Override
-    public void addUser(UserDO userDO) {
-        userMapper.add(userDO);
-    }
-
-    @Override
-    public void updateUser(UserDO userDO) {
-        userMapper.update(userDO);
-    }
-
-    @Override
-    public void deleteById(Long id) {
-        userMapper.deleteById(id);
-    }
 }

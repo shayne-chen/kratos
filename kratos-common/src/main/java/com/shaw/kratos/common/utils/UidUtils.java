@@ -7,12 +7,12 @@ public class UidUtils {
     public static String generateUid() {
         UUID uuid = UUID.randomUUID();
         String uuidStr = uuid.toString();
-        return uuidStr.toLowerCase().replace("-", "").substring(0, 20);
+        return uuidStr.toLowerCase().replace("-", "").substring(0, 15);
     }
 
-    public static String generateSid() {
+    public static String generateSid(String uid) {
         UUID uuid = UUID.randomUUID();
         String uuidStr = uuid.toString();
-        return uuidStr.toLowerCase().replace("-", "").substring(0, 30);
+        return uid + uuidStr.toLowerCase().replace("-", "").substring(0, 15);
     }
 }

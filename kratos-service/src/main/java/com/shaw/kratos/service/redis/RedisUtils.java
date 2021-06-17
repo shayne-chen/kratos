@@ -16,6 +16,10 @@ public class RedisUtils {
         return redisTemplate.opsForValue().get(key);
     }
 
+    public void put(String key, String value, long expireTime, TimeUnit timeUnit) {
+        redisTemplate.opsForValue().set(key, value, expireTime, timeUnit);
+    }
+
     public Boolean hasKey(String key) {
         return redisTemplate.hasKey(key);
     }

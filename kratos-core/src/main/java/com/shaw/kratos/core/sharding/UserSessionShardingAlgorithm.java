@@ -8,13 +8,13 @@ import java.util.Collection;
 
 /**
  * @author chenxiao
- * @date 2021/6/17 10:10 上午
+ * @date 2021/6/17 2:56 下午
  */
-public class UserShardingAlgorithm implements PreciseShardingAlgorithm<String> {
+public class UserSessionShardingAlgorithm implements PreciseShardingAlgorithm<String> {
 
     @Override
     public String doSharding(Collection<String> collection, PreciseShardingValue<String> preciseShardingValue) {
-        String target = UserSessionConstants.USER_SHARDING_PREFIX + preciseShardingValue.getValue().hashCode() % UserSessionConstants.USER_SHARDING_NUM;
+        String target = UserSessionConstants.USER_SESSION_SHARDING_PREFIX + preciseShardingValue.getValue().hashCode() % UserSessionConstants.USER_SESSION_SHARDING_NUM;
         for (String each: collection) {
             if (each.equals(target)) {
                 return each;

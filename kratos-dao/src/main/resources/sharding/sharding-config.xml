@@ -1,0 +1,38 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:sharding="http://shardingsphere.apache.org/schema/shardingsphere/sharding"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans.xsd
+                        http://shardingsphere.apache.org/schema/shardingsphere/sharding
+                        http://shardingsphere.apache.org/schema/shardingsphere/sharding/sharding.xsd
+                        ">
+    <bean id="defaultDataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="url" value="${spring.datasource.default.url}"/>
+        <property name="username" value="${spring.datasource.default.username}" />
+        <property name="password" value="${spring.datasource.default.password}" />
+    </bean>
+
+    <bean id="ds" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="url" value="${spring.datasource.sharding.url}"/>
+        <property name="username" value="${spring.datasource.sharding.username}" />
+        <property name="password" value="${spring.datasource.sharding.password}" />
+    </bean>
+
+    <bean id="userShardingAlgorithm" class="com.shaw.kratos.core.sharding.UserShardingAlgorithm"/>
+    <sharding:standard-strategy id="userTableStrategy" sharding-column="uid" precise-algorithm-ref="userShardingAlgorithm"/>
+
+    <bean id="userSessionShardingAlgorithm" class="com.shaw.kratos.core.sharding.UserSessionShardingAlgorithm"/>
+    <sharding:standard-strategy id="userSessionTableStrategy" sharding-column="uid" precise-algorithm-ref="userSessionShardingAlgorithm"/>
+
+
+    <sharding:data-source id="shardingDataSource">
+        <sharding:sharding-rule data-source-names="ds">
+            <sharding:table-rules>
+                <sharding:table-rule logic-table="user" actual-data-nodes="ds.user_$->{0..1}" table-strategy-ref="userTableStrategy" />
+                <sharding:table-rule logic-table="user_session" actual-data-nodes="ds.user_session_$->{0..1}" table-strategy-ref="userSessionTableStrategy" />
+            </sharding:table-rules>
+        </sharding:sharding-rule>
+    </sharding:data-source>
+</beans>

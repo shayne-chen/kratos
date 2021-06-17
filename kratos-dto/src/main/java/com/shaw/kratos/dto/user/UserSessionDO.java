@@ -1,6 +1,7 @@
 package com.shaw.kratos.dto.user;
 
 import com.shaw.kratos.dto.BaseDO;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
