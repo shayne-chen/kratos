@@ -1,6 +1,7 @@
 package com.shaw.kratos.dao.config;
 
 import com.shaw.kratos.core.source.DynamicDataSource;
+import com.shaw.kratos.dao.interceptor.MybatisGmtInterceptor;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,6 +28,9 @@ public class MybatisConfig {
     @Resource(name = "defaultDataSource")
     private DataSource defaultDataSource;
 
+    @Resource
+    private MybatisGmtInterceptor mybatisGmtInterceptor;
+
     @Bean("dynamicDataSource")
     public DataSource dynamicDataSource() {
         DynamicDataSource dynamicDataSource = new DynamicDataSource();
@@ -34,7 +38,7 @@ public class MybatisConfig {
         dataSourceMap.put("default", defaultDataSource);
         dataSourceMap.put("sharding", shardingDataSource);
 
-        dynamicDataSource.setDefaultDataSource(defaultDataSource);
+        dynamicDataSource.setDefaultDataSource(shardingDataSource);
         dynamicDataSource.setDataSources(dataSourceMap);
         return dynamicDataSource;
     }
@@ -44,6 +48,7 @@ public class MybatisConfig {
         SqlSessionFactoryBean sqlSessionFactory = new SqlSessionFactoryBean();
         sqlSessionFactory.setDataSource(dynamicDataSource());
         sqlSessionFactory.setTypeAliasesPackage("com.shaw.kratos.dto");
+        sqlSessionFactory.setPlugins(mybatisGmtInterceptor);
 
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         sqlSessionFactory.setMapperLocations(resolver.getResources("classpath*:mybatis/mapper/*.xml"));    // 扫描映射文件

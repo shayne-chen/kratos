@@ -1,6 +1,7 @@
 package com.shaw.kratos.service.impl;
 
-import com.shaw.kratos.dao.mapper.UserSessionMapper;
+import com.shaw.kratos.dao.mapper.user.UserMapper;
+import com.shaw.kratos.dao.mapper.user.UserSessionMapper;
 import com.shaw.kratos.dto.user.UserSessionDO;
 import com.shaw.kratos.service.user.IUserSessionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,5 +40,14 @@ public class UserSessionService implements IUserSessionService {
     @Override
     public UserSessionDO getBySid(String sid) {
         return userSessionMapper.getBySid(sid);
+    }
+
+    @Override
+    public void addSession(String sid, String uid) {
+        UserSessionDO userSessionDO = new UserSessionDO();
+        userSessionDO.setSid(sid);
+        userSessionDO.setUid(uid);
+        userSessionDO.setStatus(true);
+        this.add(userSessionDO);
     }
 }

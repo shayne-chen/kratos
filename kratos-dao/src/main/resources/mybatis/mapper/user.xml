@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.shaw.kratos.dao.mapper.UserMapper">
+<mapper namespace="com.shaw.kratos.dao.mapper.user.UserMapper">
     <resultMap id="userResult" type="com.shaw.kratos.dto.user.UserDO">
         <result property="id" column="id"/>
         <result property="username" column="username"/>
@@ -66,5 +66,21 @@
         <include refid="table_name"/>
         where id=#{id}
     </delete>
+
+    <select id="getByUserAndPassword" resultMap="userResult">
+        select
+        <include refid="columns"/>
+        from
+        <include refid="table_name"/>
+        where username=#{username} and password=#{password}
+    </select>
+
+    <select id="getByUsername" resultMap="userResult">
+        select
+        <include refid="columns"/>
+        from
+        <include refid="table_name"/>
+        where username=#{username}
+    </select>
 
 </mapper>

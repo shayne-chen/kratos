@@ -13,7 +13,7 @@ public class DynamicDataSourceContextHolder {
     private static final ThreadLocal<String> contextHolder = new ThreadLocal<String>() {
         @Override
         protected String initialValue() {
-            return "default";
+            return "sharding";
         }
     };
 

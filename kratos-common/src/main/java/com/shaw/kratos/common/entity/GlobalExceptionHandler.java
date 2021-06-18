@@ -34,7 +34,6 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(BusinessException.class)
     @ResponseBody
     ResponseError handleBusinessException(BusinessException e) {
-        log.warn("出现了自定义的异常===============");
         return ResponseError.builder()
                 .code(ResponseStatusEnum.BUSINESS_ERROR.getCode())
                 .success(false)

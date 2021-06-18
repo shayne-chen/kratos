@@ -9,8 +9,8 @@ import com.shaw.kratos.service.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
 @RequestMapping("/user")
+@RestController
 public class UserController {
 
     @Autowired
@@ -19,6 +19,13 @@ public class UserController {
     @PostMapping(value = "/login")
     @DataSource(value = "sharding")
     public ResponseStatus userLogin(@RequestBody UserDO userDO) {
+        userService.userLogin(userDO);
+        return ResponseUtils.success();
+    }
+
+    @PostMapping(value = "/registry")
+    @DataSource(value = "sharding")
+    public ResponseStatus userRegistry(@RequestBody UserDO userDO) {
         userService.userRegistry(userDO);
         return ResponseUtils.success();
     }

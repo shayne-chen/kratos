@@ -6,6 +6,8 @@ public interface IUserSessionService {
 
     void add(UserSessionDO userSessionDO);
 
+    void addSession(String sid, String uid);
+
     void expireAllSessions(String uid);
 
     UserSessionDO getSessions(String uid);

@@ -7,7 +7,8 @@ package com.shaw.kratos.common.enums;
 public enum KratosExceptionEnum {
     SESSION_INVALID("SESSION_INVALID", "session无效"),
     SESSION_MISSED("SESSION_MISSED", "session缺失"),
-    USER_PASSWORD_ERROR("USER_PASSWORD_ERROR", "用户名或密码错误")
+    PASSWORD_ERROR("PASSWORD_ERROR", "密码错误"),
+    USER_NOT_EXIST("USER_NOT_EXIST", "用户不存在"),
     ;
 
     KratosExceptionEnum(String code, String message) {

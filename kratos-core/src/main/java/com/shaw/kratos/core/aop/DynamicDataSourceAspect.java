@@ -26,18 +26,12 @@ public class DynamicDataSourceAspect {
             log.error("dataSource value = {}, 不支持", dataSource.value());
         } else {
             DynamicDataSourceContextHolder.setDataSourceKey(dataSource.value());
-            log.info("切换数据源为 = " + DynamicDataSourceContextHolder.getDataSourceKey());
+            log.info("切换数据源 = " + DynamicDataSourceContextHolder.getDataSourceKey());
         }
     }
 
     @After("@annotation(dataSource))")
     public void afterResetDataSource(JoinPoint point, DataSource dataSource) {
-        DynamicDataSourceContextHolder.resetDataSourceKey();
-        log.info("重置后的数据源 = " + DynamicDataSourceContextHolder.getDataSourceKey());
-    }
-
-    @AfterThrowing("@annotation(dataSource))")
-    public void throwResetDataSource(JoinPoint point, DataSource dataSource) {
         DynamicDataSourceContextHolder.resetDataSourceKey();
         log.info("重置后的数据源 = " + DynamicDataSourceContextHolder.getDataSourceKey());
     }
