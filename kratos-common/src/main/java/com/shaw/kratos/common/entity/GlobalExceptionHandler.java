@@ -3,20 +3,19 @@ package com.shaw.kratos.common.entity;
 import com.shaw.kratos.common.enums.ResponseStatusEnum;
 import com.shaw.kratos.common.exceptions.BusinessException;
 import com.shaw.kratos.common.exceptions.KratosException;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@ControllerAdvice
-@Slf4j
+@RestControllerAdvice
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     ResponseStatus handleException(Exception e) {
+        e.printStackTrace();
         return ResponseStatus.builder()
                 .code(ResponseStatusEnum.SYSTEM_ERROR.getCode())
-                .message(e.getMessage())
+                .message(e.toString())
                 .success(false)
                 .t(System.currentTimeMillis()).build();
     }

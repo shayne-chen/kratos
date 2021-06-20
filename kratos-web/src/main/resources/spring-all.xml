@@ -5,5 +5,5 @@
        http://www.springframework.org/schema/beans/spring-beans.xsd"
        default-autowire="byName">
 
-    <import resource="classpath:sharding/sharding-config.xml"/>
+    <import resource="classpath:dataSource/dataSource-config.xml"/>
 </beans>

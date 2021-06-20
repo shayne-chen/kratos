@@ -12,5 +12,5 @@ public class UserSessionDO extends BaseDO<Long> {
     private String sid;
 
     /** sid是否有效，1-有效，0-无效 */
-    private boolean status;
+    private Integer status = 1;
 }

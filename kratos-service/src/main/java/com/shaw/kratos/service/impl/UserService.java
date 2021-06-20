@@ -1,5 +1,6 @@
 package com.shaw.kratos.service.impl;
 
+import com.shaw.kratos.common.constants.UserSessionConstants;
 import com.shaw.kratos.common.enums.KratosExceptionEnum;
 import com.shaw.kratos.common.exceptions.BusinessException;
 import com.shaw.kratos.common.utils.UidUtils;
@@ -46,6 +47,10 @@ public class UserService implements IUserService {
     @Override
     @Transactional
     public UserSessionDO userRegistry(UserDO userDO) {
+        if (null != userMapper.getByUsername(userDO.getUsername())) {
+            throw new BusinessException(KratosExceptionEnum.USER_EXISTED);
+        }
+
         if (StringUtils.isEmpty(userDO.getUid())) {
             userDO.setUid(UidUtils.generateUid());
         }
@@ -83,7 +88,6 @@ public class UserService implements IUserService {
         UserSessionDO userSessionDO = new UserSessionDO();
         userSessionDO.setSid(newSid);
         userSessionDO.setUid(userDO1.getUid());
-        userSessionDO.setStatus(true);
         userSessionService.add(userSessionDO);
         userCacheService.put(newSid, userDO1);
 

@@ -14,6 +14,7 @@ public interface IUserCacheService {
 
     void deleteSid(String sid);
 
+    /** 校验sid是否有效 */
     boolean verifySession(String sid);
 
 }

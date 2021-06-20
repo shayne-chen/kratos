@@ -28,7 +28,7 @@
             <if test="password != null">password=#{password},</if>
             <if test="uid != null">uid=#{uid},</if>
             <if test="gmtCreate != null">gmt_create=#{gmtCreate},</if>
-            <if test="gmtModified != null">gmt_modified=#{gmtModified},</if>
+            <if test="gmtModified != null">gmt_modified=#{gmtModified}</if>
         </set>
     </sql>
 

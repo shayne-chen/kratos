@@ -36,9 +36,9 @@ public class MybatisConfig {
         DynamicDataSource dynamicDataSource = new DynamicDataSource();
         Map<Object, Object> dataSourceMap = new HashMap<>(2);
         dataSourceMap.put("default", defaultDataSource);
-        dataSourceMap.put("sharding", shardingDataSource);
+        dataSourceMap.put("dataSource", shardingDataSource);
 
-        dynamicDataSource.setDefaultDataSource(shardingDataSource);
+        dynamicDataSource.setDefaultDataSource(defaultDataSource);
         dynamicDataSource.setDataSources(dataSourceMap);
         return dynamicDataSource;
     }

@@ -9,6 +9,7 @@ public enum KratosExceptionEnum {
     SESSION_MISSED("SESSION_MISSED", "session缺失"),
     PASSWORD_ERROR("PASSWORD_ERROR", "密码错误"),
     USER_NOT_EXIST("USER_NOT_EXIST", "用户不存在"),
+    USER_EXISTED("USER_EXISTED", "用户已存在"),
     ;
 
     KratosExceptionEnum(String code, String message) {

@@ -14,7 +14,8 @@ public class UserSessionShardingAlgorithm implements PreciseShardingAlgorithm<St
 
     @Override
     public String doSharding(Collection<String> collection, PreciseShardingValue<String> preciseShardingValue) {
-        String target = UserSessionConstants.USER_SESSION_SHARDING_PREFIX + preciseShardingValue.getValue().hashCode() % UserSessionConstants.USER_SESSION_SHARDING_NUM;
+        int suffix = Math.abs(preciseShardingValue.getValue().hashCode() % UserSessionConstants.USER_SHARDING_NUM);
+        String target = UserSessionConstants.USER_SESSION_SHARDING_PREFIX + suffix;
         for (String each: collection) {
             if (each.equals(target)) {
                 return each;

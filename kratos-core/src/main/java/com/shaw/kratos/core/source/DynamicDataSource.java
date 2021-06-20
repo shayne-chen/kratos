@@ -2,7 +2,6 @@ package com.shaw.kratos.core.source;
 
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 
-import javax.sql.DataSource;
 import java.util.Map;
 
 /**
@@ -10,11 +9,6 @@ import java.util.Map;
  * @date 2021/6/17 10:22 上午
  */
 public class DynamicDataSource extends AbstractRoutingDataSource {
-
-    @Override
-    protected DataSource determineTargetDataSource() {
-        return super.determineTargetDataSource();
-    }
 
     @Override
     protected Object determineCurrentLookupKey() {

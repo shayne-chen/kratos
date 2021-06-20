@@ -1,6 +1,5 @@
 package com.shaw.kratos.service.impl;
 
-import com.shaw.kratos.dao.mapper.user.UserMapper;
 import com.shaw.kratos.dao.mapper.user.UserSessionMapper;
 import com.shaw.kratos.dto.user.UserSessionDO;
 import com.shaw.kratos.service.user.IUserSessionService;
@@ -47,7 +46,6 @@ public class UserSessionService implements IUserSessionService {
         UserSessionDO userSessionDO = new UserSessionDO();
         userSessionDO.setSid(sid);
         userSessionDO.setUid(uid);
-        userSessionDO.setStatus(true);
         this.add(userSessionDO);
     }
 }
