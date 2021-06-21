@@ -1,5 +1,6 @@
 package com.shaw.controller;
 
+import com.shaw.kratos.common.constants.DataSourceConstants;
 import com.shaw.kratos.common.entity.Response;
 import com.shaw.kratos.common.utils.ResponseUtils;
 import com.shaw.kratos.core.aop.DataSource;
@@ -19,19 +20,19 @@ public class UserController {
     private IUserService userService;
 
     @PostMapping(value = "/login")
-    @DataSource(value = "dataSource")
+    @DataSource(value = DataSourceConstants.SHARDING_SOURCE)
     public Response userLogin(@RequestBody UserDO userDO) {
         return ResponseUtils.buildSuccessResponse(userService.userLogin(userDO));
     }
 
     @PostMapping(value = "/registry")
-    @DataSource(value = "dataSource")
+    @DataSource(value = DataSourceConstants.SHARDING_SOURCE)
     public Response userRegistry(@RequestBody UserDO userDO) {
         return ResponseUtils.buildSuccessResponse(userService.userRegistry(userDO));
     }
 
     @GetMapping(value = "/get")
-    @DataSource(value = "dataSource")
+    @DataSource(value = DataSourceConstants.SHARDING_SOURCE)
     public Response getUserInfo(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
         String sid = null;

@@ -63,20 +63,6 @@
         where id=#{ id }
     </update>
 
-    <select id="getById" resultMap="userSession">
-        select
-        <include refid="select-param-column"/>
-        from
-        <include refid="table_name"/>
-        where id=#{ id }
-    </select>
-
-    <delete id="deleteById">
-        delete from
-        <include refid="table_name"/>
-        where id=#{id}
-    </delete>
-
     <select id="getByUid" resultMap="userSession">
         select
         <include refid="select-param-column"/>
@@ -93,11 +79,13 @@
         where sid=#{ sid } and status=1
     </select>
 
-    <update id="expireAllSid">
+    <update id="expireAllSid" parameterType="com.shaw.kratos.dto.user.UserSessionDO">
         update
         <include refid="table_name"/>
-        set status=0
-        where uid=#{ uid }
+        <set>
+            <include refid="set"/>
+        </set>
+        where uid=#{ uid } and sid=#{sid}
     </update>
 
 

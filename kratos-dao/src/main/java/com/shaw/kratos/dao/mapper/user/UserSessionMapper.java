@@ -13,6 +13,6 @@ public interface UserSessionMapper extends IBaseDAO<UserSessionDO> {
 
     UserSessionDO getBySid(String sid);
 
-    void expireAllSid(String uid);
+    void expireAllSid(UserSessionDO userSessionDO);
 
 }

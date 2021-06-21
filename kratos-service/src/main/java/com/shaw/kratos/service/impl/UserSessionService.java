@@ -1,9 +1,13 @@
 package com.shaw.kratos.service.impl;
 
+import com.shaw.kratos.common.constants.DataSourceConstants;
+import com.shaw.kratos.core.aop.DataSource;
 import com.shaw.kratos.dao.mapper.user.UserSessionMapper;
 import com.shaw.kratos.dto.user.UserSessionDO;
 import com.shaw.kratos.service.user.IUserSessionService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 /**
@@ -11,6 +15,7 @@ import org.springframework.stereotype.Service;
  * @date 2021/6/16 4:15 下午
  */
 @Service
+@Slf4j
 public class UserSessionService implements IUserSessionService {
 
     @Autowired
@@ -26,9 +31,15 @@ public class UserSessionService implements IUserSessionService {
 
     @Override
     public void expireAllSessions(String uid) {
-        UserSessionDO userSessionDO = userSessionMapper.getByUid(uid);
-        userSessionMapper.expireAllSid(uid);
-        userCacheService.deleteSid(userSessionDO.getSid());
+        handleExpiredSid(uid);
+    }
+
+    @Override
+    @Async("kratosTask")
+    @DataSource(value = DataSourceConstants.SHARDING_SOURCE)
+    public void expireSessionAsync(String uid) {
+        log.info("异步处理过期的sid, uid=" + uid);
+        handleExpiredSid(uid);
     }
 
     @Override
@@ -47,5 +58,18 @@ public class UserSessionService implements IUserSessionService {
         userSessionDO.setSid(sid);
         userSessionDO.setUid(uid);
         this.add(userSessionDO);
+    }
+
+    private void handleExpiredSid(String uid) {
+        UserSessionDO userSessionDO = userSessionMapper.getByUid(uid);
+        if (null == userSessionDO) {
+            return;
+        }
+        UserSessionDO userSessionDO1 = new UserSessionDO();
+        userSessionDO1.setStatus(0);
+        userSessionDO1.setUid(uid);
+        userSessionDO1.setSid(userSessionDO.getSid());
+        userSessionMapper.expireAllSid(userSessionDO1);
+        userCacheService.deleteSid(userSessionDO.getSid());
     }
 }

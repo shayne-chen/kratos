@@ -10,6 +10,8 @@ public interface IUserSessionService {
 
     void expireAllSessions(String uid);
 
+    void expireSessionAsync(String uid);
+
     UserSessionDO getSessions(String uid);
 
     UserSessionDO getBySid(String sid);

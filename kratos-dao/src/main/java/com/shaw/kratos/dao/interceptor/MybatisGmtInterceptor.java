@@ -41,13 +41,7 @@ public class MybatisGmtInterceptor implements Interceptor {
         if (ms.getSqlCommandType().equals(SqlCommandType.INSERT) || ms.getSqlCommandType().equals(SqlCommandType.UPDATE)) {
             Object paramObj = args[1];
             Class<?> clazz = paramObj.getClass();
-            Field[] fields;
-            if (!clazz.getSuperclass().isInstance(Object.class)) {
-                Class<?> superClazz = clazz.getSuperclass();
-                fields = superClazz.getDeclaredFields();
-            } else {
-                fields = clazz.getFields();
-            }
+            Field[] fields = clazz.getSuperclass().isInstance(Object.class) ? clazz.getDeclaredFields() : clazz.getSuperclass().getDeclaredFields();
             if (ms.getSqlCommandType().equals(SqlCommandType.INSERT)) {
                 for (Field field: fields) {
                     switch (field.getName()) {

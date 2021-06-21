@@ -1,5 +1,6 @@
 package com.shaw.kratos.dao.config;
 
+import com.shaw.kratos.common.constants.DataSourceConstants;
 import com.shaw.kratos.core.source.DynamicDataSource;
 import com.shaw.kratos.dao.interceptor.MybatisGmtInterceptor;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -35,8 +36,8 @@ public class MybatisConfig {
     public DataSource dynamicDataSource() {
         DynamicDataSource dynamicDataSource = new DynamicDataSource();
         Map<Object, Object> dataSourceMap = new HashMap<>(2);
-        dataSourceMap.put("default", defaultDataSource);
-        dataSourceMap.put("dataSource", shardingDataSource);
+        dataSourceMap.put(DataSourceConstants.DEFAULT_SOURCE, defaultDataSource);
+        dataSourceMap.put(DataSourceConstants.SHARDING_SOURCE, shardingDataSource);
 
         dynamicDataSource.setDefaultDataSource(defaultDataSource);
         dynamicDataSource.setDataSources(dataSourceMap);

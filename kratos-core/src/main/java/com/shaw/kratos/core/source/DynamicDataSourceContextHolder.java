@@ -1,5 +1,7 @@
 package com.shaw.kratos.core.source;
 
+import com.shaw.kratos.common.constants.DataSourceConstants;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -10,12 +12,7 @@ import java.util.List;
  */
 public class DynamicDataSourceContextHolder {
 
-    private static final ThreadLocal<String> contextHolder = new ThreadLocal<String>() {
-        @Override
-        protected String initialValue() {
-            return "default";
-        }
-    };
+    private static final ThreadLocal<String> contextHolder = ThreadLocal.withInitial(() -> DataSourceConstants.DEFAULT_SOURCE);
 
     private static List<Object> dataSourceKeys = new ArrayList<>(3);
 

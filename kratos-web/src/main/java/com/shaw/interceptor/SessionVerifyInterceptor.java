@@ -3,6 +3,7 @@ package com.shaw.interceptor;
 import com.shaw.kratos.common.enums.KratosExceptionEnum;
 import com.shaw.kratos.common.exceptions.BusinessException;
 import com.shaw.kratos.service.impl.UserCacheService;
+import com.shaw.kratos.service.impl.UserSessionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,9 +24,11 @@ public class SessionVerifyInterceptor implements HandlerInterceptor {
     @Autowired
     private UserCacheService userCacheService;
 
+    @Autowired
+    private UserSessionService userSessionService;
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        log.info("-------------this is postHandle--------------");
         Cookie[] cookies = request.getCookies();
         if (null == cookies) {
             throw new BusinessException(KratosExceptionEnum.SESSION_MISSED);
@@ -42,6 +45,7 @@ public class SessionVerifyInterceptor implements HandlerInterceptor {
         }
         String sid = sessionCookie.getValue();
         if (!userCacheService.verifySession(sid)) {
+            userSessionService.expireSessionAsync(sid.substring(0, 15));
             throw new BusinessException(KratosExceptionEnum.SESSION_INVALID);
         }
         return true;
