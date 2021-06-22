@@ -16,6 +16,6 @@ public class KratosApplication {
     public static void main(String[] args) {
         long startTime = System.currentTimeMillis();
         SpringApplication.run(KratosApplication.class, args);
-        System.out.println(String.format("------- Kratos Application Started ----, 耗时 %s ms", (System.currentTimeMillis() - startTime)));
+        System.out.println(String.format("------- Kratos Application Started -------, 耗时 %s ms", (System.currentTimeMillis() - startTime)));
     }
 }
