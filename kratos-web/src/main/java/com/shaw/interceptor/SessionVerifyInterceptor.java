@@ -45,6 +45,7 @@ public class SessionVerifyInterceptor implements HandlerInterceptor {
         }
         String sid = sessionCookie.getValue();
         if (!userCacheService.verifySession(sid)) {
+            // sid过期，更新数据库中sid状态为无效
             userSessionService.expireSessionAsync(sid.substring(0, 15));
             throw new BusinessException(KratosExceptionEnum.SESSION_INVALID);
         }

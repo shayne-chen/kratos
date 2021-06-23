@@ -1,6 +1,5 @@
 package com.shaw.kratos.service.impl;
 
-import com.shaw.kratos.common.constants.UserSessionConstants;
 import com.shaw.kratos.common.enums.KratosExceptionEnum;
 import com.shaw.kratos.common.exceptions.BusinessException;
 import com.shaw.kratos.common.utils.UidUtils;

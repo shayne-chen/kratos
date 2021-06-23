@@ -8,7 +8,7 @@ public class SpinLock {
 
     private static final int tryCount = 10;
 
-    public static void addLock() {
+    public static void lock() {
         int currentCount = 0;
         while (!state.compareAndSet(0, 1)) {
             if (currentCount < tryCount) {

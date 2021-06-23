@@ -19,6 +19,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class DynamicDataSourceAspect {
 
+    /** 切换数据源 */
     @Before("@annotation(dataSource))")
     public void switchDataSource(JoinPoint point, DataSource dataSource) {
         if (!DynamicDataSourceContextHolder.containsDataSourceKey(dataSource.value())) {
@@ -29,6 +30,7 @@ public class DynamicDataSourceAspect {
         }
     }
 
+    /** 重置为默认数据源 */
     @After("@annotation(dataSource))")
     public void afterResetDataSource(JoinPoint point, DataSource dataSource) {
         DynamicDataSourceContextHolder.resetDataSourceKey();

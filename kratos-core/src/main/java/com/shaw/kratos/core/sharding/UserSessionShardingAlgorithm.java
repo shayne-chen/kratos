@@ -9,6 +9,7 @@ import java.util.Collection;
 /**
  * @author chenxiao
  * @date 2021/6/17 2:56 下午
+ * session表分表算法
  */
 public class UserSessionShardingAlgorithm implements PreciseShardingAlgorithm<String> {
 

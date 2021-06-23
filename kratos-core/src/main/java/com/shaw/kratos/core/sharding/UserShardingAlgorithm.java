@@ -9,6 +9,7 @@ import java.util.Collection;
 /**
  * @author chenxiao
  * @date 2021/6/17 10:10 上午
+ * user表分表算法
  */
 public class UserShardingAlgorithm implements PreciseShardingAlgorithm<String> {
 
