@@ -48,11 +48,11 @@ public class RedisUtils {
         return String.valueOf(redisTemplate.opsForHash().get(redisKey, key));
     }
 
-    public void lock(String key, String value, long expireTime, TimeUnit timeUnit) {
-        redisTemplate.opsForValue().setIfAbsent(key, value, expireTime, timeUnit);
+    public Boolean lock(String key, String value, long expireTime, TimeUnit timeUnit) {
+        return redisTemplate.opsForValue().setIfAbsent(key, value, expireTime, timeUnit);
     }
 
-    public void unLock(String key) {
-        redisTemplate.delete(key);
+    public Boolean unLock(String key, String value) {
+        return redisTemplate.delete(key);
     }
 }
