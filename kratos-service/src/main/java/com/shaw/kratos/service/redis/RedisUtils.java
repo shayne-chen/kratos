@@ -1,19 +1,31 @@
 package com.shaw.kratos.service.redis;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StopWatch;
 
 import java.util.concurrent.TimeUnit;
 
 @Component
+@Slf4j
 public class RedisUtils {
 
     @Autowired
     private StringRedisTemplate redisTemplate;
 
+    private static final long CACHE_TIMEOUT_MS = 100;
+
     public String get(String key) {
-        return redisTemplate.opsForValue().get(key);
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        String value = redisTemplate.opsForValue().get(key);
+        stopWatch.stop();
+        if (stopWatch.getTotalTimeMillis() > CACHE_TIMEOUT_MS) {
+            log.warn("get from cache cost {} ms, cache key = {}", stopWatch.getTotalTimeMillis(), key);
+        }
+        return value;
     }
 
     public void put(String key, String value, long expireTime, TimeUnit timeUnit) {
@@ -53,6 +65,9 @@ public class RedisUtils {
     }
 
     public Boolean unLock(String key, String value) {
+        if (!this.get(key).equals(value)) {
+            return false;
+        }
         return redisTemplate.delete(key);
     }
 }

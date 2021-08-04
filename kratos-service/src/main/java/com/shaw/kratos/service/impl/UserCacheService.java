@@ -12,8 +12,8 @@ import org.springframework.stereotype.Service;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @author chenxiao
- * @date 2021/6/17 5:22 下午
+ * @author shaw
+ * @date 2021/6/17
  */
 @Service
 public class UserCacheService implements IUserCacheService {

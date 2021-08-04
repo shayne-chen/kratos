@@ -31,7 +31,7 @@
         <sharding:sharding-rule data-source-names="ds">
             <sharding:table-rules>
                 <sharding:table-rule logic-table="user" actual-data-nodes="ds.user_$->{0..1}" table-strategy-ref="userTableStrategy" />
-                <sharding:table-rule logic-table="user_session" actual-data-nodes="ds.user_session_$->{0..1}" table-strategy-ref="userSessionTableStrategy" />
+                <sharding:table-rule logic-table="user_session" actual-data-nodes="ds.user_session_$->{0..3}" table-strategy-ref="userSessionTableStrategy" />
             </sharding:table-rules>
         </sharding:sharding-rule>
     </sharding:data-source>

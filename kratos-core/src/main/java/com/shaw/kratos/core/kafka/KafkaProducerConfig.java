@@ -12,8 +12,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author chenxiao
- * @date 2021/6/24 4:11 下午
+ * @author shaw
+ * @date 2021/6/24
  */
 @Configuration
 //@EnableKafka

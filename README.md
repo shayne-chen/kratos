@@ -9,7 +9,7 @@ kratos-service : service层
 kratos-web     : controller、请求拦截器  
 
 
-###基础业务功能描述: 用户登录注册等简单功能  
+####基础业务功能描述: 用户登录注册等简单功能  
 
 1.使用拦截器校验请求cookie中的sid, sid及用户信息保存在redis    
 

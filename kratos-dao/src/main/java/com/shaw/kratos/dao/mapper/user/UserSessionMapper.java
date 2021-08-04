@@ -4,8 +4,8 @@ import com.shaw.kratos.dao.IBaseDAO;
 import com.shaw.kratos.dto.user.UserSessionDO;
 
 /**
- * @author chenxiao
- * @date 2021/6/18 3:21 下午
+ * @author shaw
+ * @date 2021/6/18
  */
 public interface UserSessionMapper extends IBaseDAO<UserSessionDO> {
 

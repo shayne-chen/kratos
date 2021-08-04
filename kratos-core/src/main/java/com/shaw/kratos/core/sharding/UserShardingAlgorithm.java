@@ -7,8 +7,8 @@ import org.apache.shardingsphere.api.sharding.standard.PreciseShardingValue;
 import java.util.Collection;
 
 /**
- * @author chenxiao
- * @date 2021/6/17 10:10 上午
+ * @author shaw
+ * @date 2021/6/17
  * user表分表算法
  */
 public class UserShardingAlgorithm implements PreciseShardingAlgorithm<String> {

@@ -1,8 +1,8 @@
 package com.shaw.kratos.common.cache;
 
 /**
- * @author chenxiao
- * @date 2021/6/16 3:17 下午
+ * @author shaw
+ * @date 2021/6/16
  */
 public abstract class AbstractCache<K, V> {
 

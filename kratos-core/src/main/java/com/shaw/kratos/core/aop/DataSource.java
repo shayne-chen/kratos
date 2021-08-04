@@ -3,8 +3,8 @@ package com.shaw.kratos.core.aop;
 import java.lang.annotation.*;
 
 /**
- * @author chenxiao
- * @date 2021/6/17 10:50 上午
+ * @author shaw
+ * @date 2021/6/17
  */
 @Documented
 @Target({ElementType.METHOD, ElementType.TYPE})

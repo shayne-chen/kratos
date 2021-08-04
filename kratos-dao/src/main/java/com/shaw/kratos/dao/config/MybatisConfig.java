@@ -17,8 +17,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author chenxiao
- * @date 2021/6/17 3:44 下午
+ * @author shaw
+ * @date 2021/6/17
  */
 @Configuration
 public class MybatisConfig {

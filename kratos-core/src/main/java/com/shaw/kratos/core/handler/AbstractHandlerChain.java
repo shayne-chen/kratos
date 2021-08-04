@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author chenxiao
- * @date 2021/6/22 10:45 上午
+ * @author shaw
+ * @date 2021/6/22
  */
 public abstract class AbstractHandlerChain implements HandlerChain {
 
@@ -16,7 +16,7 @@ public abstract class AbstractHandlerChain implements HandlerChain {
     int index = 1;
 
     @Override
-    public synchronized void registryHandler(Handler handler, int position) {
+    public synchronized void registerHandler(Handler handler, int position) {
         position = handlerMap.get(position) == null ? position : position + 1;
         handlerMap.put(position, handler);
     }

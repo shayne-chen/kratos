@@ -1,8 +1,8 @@
 package com.shaw.kratos.common.constants;
 
 /**
- * @author chenxiao
- * @date 2021/6/21 11:04 上午
+ * @author shaw
+ * @date 2021/6/21
  */
 public class DataSourceConstants {
 

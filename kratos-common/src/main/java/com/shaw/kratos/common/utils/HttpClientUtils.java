@@ -11,8 +11,8 @@ import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @author chenxiao
- * @date 2021/6/23 3:23 下午
+ * @author shaw
+ * @date 2021/6/23
  */
 public class HttpClientUtils {
 

@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * @author chenxiao
- * @date 2021/6/22 2:19 下午
+ * @author shaw
+ * @date 2021/6/22
  */
 @Component
 public class HandlerSample implements Handler, InitializingBean {
@@ -25,6 +25,6 @@ public class HandlerSample implements Handler, InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        handlerChain.registryHandler(this, 1);
+        handlerChain.registerHandler(this, 1);
     }
 }

@@ -1,8 +1,8 @@
 package com.shaw.kratos.common.enums;
 
 /**
- * @author chenxiao
- * @date 2021/6/16 3:39 下午
+ * @author shaw
+ * @date 2021/6/16
  */
 public enum KratosExceptionEnum {
     SESSION_INVALID("SESSION_INVALID", "session无效"),

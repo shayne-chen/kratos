@@ -1,8 +1,8 @@
 package com.shaw.kratos.service.kafka;
 
 /**
- * @author chenxiao
- * @date 2021/6/24 5:23 下午
+ * @author shaw
+ * @date 2021/6/24
  */
 public interface IKafkaService {
 

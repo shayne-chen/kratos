@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author chenxiao
- * @date 2021/6/16 3:18 下午
+ * @author shaw
+ * @date 2021/6/16
  */
 public class LRUCache<K, V> extends AbstractCache<K, V> {
 
@@ -18,8 +18,8 @@ public class LRUCache<K, V> extends AbstractCache<K, V> {
 
     public LRUCache(int cap) {
         this.cap = cap;
-        dummyHead = new DLinkNode<>(-1, -1);
-        dummyTail = new DLinkNode<>(-1, -1);
+        this.dummyHead = new DLinkNode<>(-1, -1);
+        this.dummyTail = new DLinkNode<>(-1, -1);
         dummyHead.next = dummyTail;
         dummyTail.prev = dummyHead;
     }
@@ -27,7 +27,8 @@ public class LRUCache<K, V> extends AbstractCache<K, V> {
     @Override
     public void put(K key, V value) {
         if (size >= cap) {
-            DLinkNode needRemoveNode = dummyHead.next;
+            // 达到限制容量，删除最少使用的元素，最少使用的元素在链表末尾
+            DLinkNode needRemoveNode = dummyTail.prev;
             removeNode(needRemoveNode);
             map.remove(needRemoveNode.k);
             size--;
@@ -69,7 +70,7 @@ public class LRUCache<K, V> extends AbstractCache<K, V> {
         node.next.prev = node.prev;
     }
 
-    static class DLinkNode<K, V> {
+    private static class DLinkNode<K, V> {
         K k;
         V v;
         DLinkNode prev;

@@ -3,8 +3,8 @@ package com.shaw.kratos.common.exceptions;
 import com.shaw.kratos.common.enums.KratosExceptionEnum;
 
 /**
- * @author chenxiao
- * @date 2021/6/16 4:05 下午
+ * @author shaw
+ * @date 2021/6/16
  */
 public class BusinessException extends RuntimeException {
 
